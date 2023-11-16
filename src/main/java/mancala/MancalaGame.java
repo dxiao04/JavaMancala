@@ -68,12 +68,26 @@ public class MancalaGame {
         }
     }
     public int move(int startPit) throws InvalidMoveException{
+        int totalPitNum = 0;
         if (!board.isValidPit(startPit)){
             throw new InvalidMoveException();
         }else{
-             
+            try{
+                board.moveStones(startPit, getCurrentPlayer());
+                if(getCurrentPlayer().getStore().equals(board.getStores().get(0))){
+                    for (int i = 0; i < 6; i++){
+                        totalPitNum += board.getPits().get(i).getStoneCount();
+                    }
+                }else if (getCurrentPlayer().getStore().equals(board.getStores().get(1))){
+                    for (int i = 6; i < 12; i++){
+                        totalPitNum += board.getPits().get(i).getStoneCount();
+                    }
+                }
+            }catch(InvalidMoveException iME){
+                throw new InvalidMoveException();
+            }
+            return totalPitNum;
         }
-        return 0;
     }
     public void setBoard(Board theBoard){
         board = theBoard;
@@ -87,7 +101,7 @@ public class MancalaGame {
         playerArr.add(twoPlayer);
     }
     public void startNewGame(){
-
+        board.resetBoard();
     }
     public String toString(){
         StringBuilder sb = new StringBuilder();

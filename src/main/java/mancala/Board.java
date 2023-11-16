@@ -43,19 +43,17 @@ public class Board {
             while (tempStones > 0){
                 currPit = (currPit + 1) % 14;
                 if (currPit == 13){
-                    if (player == 1){
-                        currPit = 0;
-                    }else{
+                    if (player == 2){
                         storeArr.get(1).addStones(1);
                         tempStones--;
+                    }else{
                         continue;
                     }
                 }else if (currPit == 6){
-                    if (player == 2){
-                        currPit = 7;
-                    }else{
+                    if (player == 1){
                         storeArr.get(0).addStones(1);
                         tempStones--;
+                    }else{
                         continue;
                     }
                 }
@@ -112,8 +110,20 @@ public class Board {
     }
     public int moveStones(int startPit, Player player) throws InvalidMoveException{
         // check validity
-        
-        return 0;
+        if (startPit <= 6 && player.getStore().equals(storeArr.get(1))){
+            throw new InvalidMoveException(); // player 2 tries to move player 1's stones
+        }else if (startPit <= 12 && player.getStore().equals(storeArr.get(0))){
+            throw new InvalidMoveException(); // player 1 tries to move player 2's stones
+        }
+        int oldStoreNum = player.getStoreCount();
+        int newStoreNum = -1;
+        try{
+            newStoreNum = distributeStones(startPit) - oldStoreNum;
+        }catch(PitNotFoundException pNFE){
+            throw new InvalidMoveException();
+        }
+
+        return newStoreNum;
     }
     void registerPlayers(Player one, Player two){
         if (storeArr.size() > 0){
@@ -149,7 +159,8 @@ public class Board {
     @Override
     public String toString(){
         StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append("player 2 (top)\n");
+        strBuilder.append(storeArr.get(1).getOwner().getName());
+        strBuilder.append(" (top)\n");
         for (int i = 11; i >= 6; i--) {
             strBuilder.append("[" + pitArr.get(i).getStoneCount() + "] ");
         }
@@ -158,7 +169,8 @@ public class Board {
         for (int i = 0; i <= 5; i++) {
             strBuilder.append("[" + pitArr.get(i).getStoneCount() + "] ");
         }
-        strBuilder.append("\nplayer 1 (bottom)\n");
+        strBuilder.append(storeArr.get(0).getOwner().getName());
+        strBuilder.append("\n (bottom)\n");
         return strBuilder.toString();
     }
 }
