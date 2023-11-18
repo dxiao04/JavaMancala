@@ -35,7 +35,6 @@ public class MancalaGame {
                 try {
                     p1Total += board.getNumStones(i + 1);
                 } catch (PitNotFoundException pNFE) {
-                    return null;
                 }
             }
             p1Total += playerArr.get(0).getStoreCount();
@@ -44,7 +43,6 @@ public class MancalaGame {
                 try {
                     p2Total += board.getNumStones(i + 1);
                 }catch (PitNotFoundException pNFE) {
-                    return null;
                 }
             }
             p2Total += playerArr.get(1).getStoreCount();

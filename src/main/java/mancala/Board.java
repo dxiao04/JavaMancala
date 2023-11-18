@@ -34,6 +34,7 @@ public class Board {
         }else{
             int currPit = startingPoint - 1;
             stoneNum = getNumStones(startingPoint);
+            pitArr.get(currPit).removeStones();
             int tempStones = stoneNum;
             if (currPit < 6){
                 player = 1;
@@ -41,34 +42,28 @@ public class Board {
                 player = 2;
             }
             while (tempStones > 0){
-                currPit = (currPit + 1) % 14;
-                if (currPit == 13){
-                    if (player == 2){
-                        storeArr.get(1).addStones(1);
-                        tempStones--;
-                    }else{
-                        continue;
-                    }
-                }else if (currPit == 6){
-                    if (player == 1){
-                        storeArr.get(0).addStones(1);
-                        tempStones--;
-                    }else{
-                        continue;
-                    }
-                }
-                if (currPit >= 0 && currPit < 6){
-                    pitArr.get(currPit).addStone();
+                currPit = (currPit + 1) % 12;
+                if (currPit == 6 && player == 1){
+                    storeArr.get(0).addStones(1);
                     tempStones--;
-                    continue;
-                }else if (currPit <= 7 && currPit < 13){
-                    pitArr.get(currPit - 1).addStone();
-                    tempStones--;
-                    continue;
                 }
+                if (currPit == 0 && player == 2){
+                    storeArr.get(1).addStones(1);
+                    tempStones--;
+                }
+                if (tempStones > 0){
+                        pitArr.get(currPit).addStone();
+                        tempStones--;
+                    }
             }
+            System.out.println("last pit is " + currPit);
+            if (pitArr.get(currPit).getStoneCount() == 1){
+                if ((currPit < 6 && player == 1) || (currPit >= 6 && player == 2)){
+                    stoneNum += captureStones(currPit + 1);
+                }
+            } 
+            return stoneNum;
         }
-        return stoneNum;
     }
     int getNumStones(int pitNum) throws PitNotFoundException{
         if (!isValidPit(pitNum)){
@@ -112,14 +107,19 @@ public class Board {
         // check validity
         if (startPit <= 6 && player.getStore().equals(storeArr.get(1))){
             throw new InvalidMoveException(); // player 2 tries to move player 1's stones
-        }else if (startPit <= 12 && player.getStore().equals(storeArr.get(0))){
+        }else if (startPit > 6 && player.getStore().equals(storeArr.get(0))){
             throw new InvalidMoveException(); // player 1 tries to move player 2's stones
         }
         int oldStoreNum = player.getStoreCount();
         int newStoreNum = -1;
+        if (pitArr.get(startPit - 1).getStoneCount() < 1){
+            System.out.println("wrong stones");
+            throw new InvalidMoveException();
+        }
         try{
             newStoreNum = distributeStones(startPit) - oldStoreNum;
         }catch(PitNotFoundException pNFE){
+            System.out.println("wrong pit2");
             throw new InvalidMoveException();
         }
 
@@ -169,7 +169,7 @@ public class Board {
         for (int i = 0; i <= 5; i++) {
             strBuilder.append("[" + pitArr.get(i).getStoneCount() + "] ");
         }
-        strBuilder.append(storeArr.get(0).getOwner().getName());
+        strBuilder.append("\n" + storeArr.get(0).getOwner().getName());
         strBuilder.append("\n (bottom)\n");
         return strBuilder.toString();
     }
