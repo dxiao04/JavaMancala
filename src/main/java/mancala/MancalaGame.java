@@ -101,9 +101,10 @@ public class MancalaGame {
     public void startNewGame(){
         board.resetBoard();
     }
+    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(board.toString() + "\n");
-        return "";
+        return sb.toString();
     }
 }

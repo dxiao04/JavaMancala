@@ -4,6 +4,7 @@ public class Board {
     // 0-5 for p1, 6-11 for p2
     private ArrayList<Pit> pitArr = new ArrayList<Pit>();
     private ArrayList<Store> storeArr = new ArrayList<Store>();
+    private Boolean extraTurn = false;
     public Board(){
         setUpPits();
         setUpStores();
@@ -36,6 +37,7 @@ public class Board {
             stoneNum = getNumStones(startingPoint);
             pitArr.get(currPit).removeStones();
             int tempStones = stoneNum;
+            setExtraTurn(false);
             if (currPit < 6){
                 player = 1;
             }else{
@@ -46,10 +48,16 @@ public class Board {
                 if (currPit == 6 && player == 1){
                     storeArr.get(0).addStones(1);
                     tempStones--;
+                    if (tempStones == 0){
+                        setExtraTurn(true);
+                    }
                 }
                 if (currPit == 0 && player == 2){
                     storeArr.get(1).addStones(1);
                     tempStones--;
+                    if (tempStones == 0){
+                        setExtraTurn(true);
+                    }
                 }
                 if (tempStones > 0){
                         pitArr.get(currPit).addStone();
@@ -64,6 +72,12 @@ public class Board {
             } 
             return stoneNum;
         }
+    }
+    void setExtraTurn(boolean inp){
+        extraTurn = inp;
+    }
+    public boolean isExtraTurn(){
+        return extraTurn;
     }
     int getNumStones(int pitNum) throws PitNotFoundException{
         if (!isValidPit(pitNum)){

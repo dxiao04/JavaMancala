@@ -19,8 +19,6 @@ public class TextUI {
         Player p2 = new Player(s.nextLine());
         mancalaGame.setPlayers(p1, p2);
 
-        boolean isFreeTurn = false;
-
         while(!mancalaGame.isGameOver()){
             mancalaGame.setCurrentPlayer(mancalaGame.getPlayers().get(currentP));
             System.out.println(mancalaGame.toString());
@@ -38,7 +36,9 @@ public class TextUI {
                 }
             }
             while (!isValidMove);
-            currentP = (currentP + 1) % 2;
+            if (!mancalaGame.getBoard().isExtraTurn()){
+                currentP = (currentP + 1) % 2;
+            }
         }
         System.out.println(mancalaGame.toString());
         try{
