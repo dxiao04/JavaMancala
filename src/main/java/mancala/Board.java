@@ -10,7 +10,7 @@ public class Board {
         setUpStores();
         initializeBoard();
     }
-    public int captureStones(int stoppingPoint) throws PitNotFoundException{
+    int captureStones(int stoppingPoint) throws PitNotFoundException{
         if (!isValidPit(stoppingPoint)){
             throw new PitNotFoundException();
         }else{
@@ -27,7 +27,7 @@ public class Board {
             return otherStones;
         }
     }
-    public int distributeStones(int startingPoint) throws PitNotFoundException{ 
+    int distributeStones(int startingPoint) throws PitNotFoundException{ 
         int player = 0;
         int stoneNum = 0;
         if(!isValidPit(startingPoint)){
@@ -64,7 +64,6 @@ public class Board {
                         tempStones--;
                     }
             }
-            System.out.println("last pit is " + currPit);
             if (pitArr.get(currPit).getStoneCount() == 1){
                 if ((currPit < 6 && player == 1) || (currPit >= 6 && player == 2)){
                     stoneNum += captureStones(currPit + 1);
@@ -76,7 +75,7 @@ public class Board {
     void setExtraTurn(boolean inp){
         extraTurn = inp;
     }
-    public boolean isExtraTurn(){
+    boolean isExtraTurn(){
         return extraTurn;
     }
     int getNumStones(int pitNum) throws PitNotFoundException{
@@ -93,7 +92,7 @@ public class Board {
     ArrayList<Store> getStores(){
         return storeArr;
     }
-    public void initializeBoard(){
+    void initializeBoard(){
         for (Pit p : pitArr){
             p.removeStones();
             p.addStone(4);
@@ -117,8 +116,7 @@ public class Board {
             return true;
         }
     }
-    public int moveStones(int startPit, Player player) throws InvalidMoveException{
-        // check validity
+    int moveStones(int startPit, Player player) throws InvalidMoveException{
         if (startPit <= 6 && player.getStore().equals(storeArr.get(1))){
             throw new InvalidMoveException(); // player 2 tries to move player 1's stones
         }else if (startPit > 6 && player.getStore().equals(storeArr.get(0))){
@@ -127,16 +125,13 @@ public class Board {
         int oldStoreNum = player.getStoreCount();
         int newStoreNum = -1;
         if (pitArr.get(startPit - 1).getStoneCount() < 1){
-            System.out.println("wrong stones");
             throw new InvalidMoveException();
         }
         try{
             newStoreNum = distributeStones(startPit) - oldStoreNum;
         }catch(PitNotFoundException pNFE){
-            System.out.println("wrong pit2");
             throw new InvalidMoveException();
         }
-
         return newStoreNum;
     }
     void registerPlayers(Player one, Player two){
@@ -184,7 +179,7 @@ public class Board {
             strBuilder.append("[" + pitArr.get(i).getStoneCount() + "] ");
         }
         strBuilder.append("\n" + storeArr.get(0).getOwner().getName());
-        strBuilder.append("\n (bottom)\n");
+        strBuilder.append("\n (bottom)");
         return strBuilder.toString();
     }
 }

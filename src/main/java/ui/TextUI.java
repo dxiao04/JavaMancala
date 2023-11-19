@@ -21,7 +21,7 @@ public class TextUI {
 
         while(!mancalaGame.isGameOver()){
             mancalaGame.setCurrentPlayer(mancalaGame.getPlayers().get(currentP));
-            System.out.println(mancalaGame.toString());
+            System.out.println("\n" + mancalaGame.toString());
             System.out.println("current player is " + mancalaGame.getCurrentPlayer().getName());
 
             do{
@@ -36,11 +36,11 @@ public class TextUI {
                 }
             }
             while (!isValidMove);
-            if (!mancalaGame.getBoard().isExtraTurn()){
+            if (!mancalaGame.isExtraTurn()){
                 currentP = (currentP + 1) % 2;
             }
         }
-        System.out.println(mancalaGame.toString());
+        System.out.println("\n" + mancalaGame.toString());
         try{
             String winName = mancalaGame.getWinner().getName();
             if (winName != null){
@@ -50,5 +50,6 @@ public class TextUI {
             }
         }catch (GameNotOverException gNOE){
         }
+        s.close();
     }
 }

@@ -9,16 +9,16 @@ public class Pit {
     public Pit(){
         stones = 0;
     }
-    public void addStone(){
+    void addStone(){
         stones += 1;
     }
-    public void addStone(int stoneNum){
+    void addStone(int stoneNum){
         stones += stoneNum;
     }
-    public int getStoneCount(){
+    int getStoneCount(){
         return stones;
     }
-    public int removeStones(){
+    int removeStones(){
         int count = stones;
         stones = 0;
         return count;

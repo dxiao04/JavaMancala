@@ -24,7 +24,10 @@ public class MancalaGame {
         return playerArr;
     }
     public int getStoreCount(Player player) throws NoSuchPlayerException{
-        return 0;
+        if (!playerArr.contains(player)){
+            throw new NoSuchPlayerException();
+        }
+        return player.getStoreCount();
     }
     public Player getWinner() throws GameNotOverException{
         if (!isGameOver()){
@@ -100,6 +103,9 @@ public class MancalaGame {
     }
     public void startNewGame(){
         board.resetBoard();
+    }
+    public boolean isExtraTurn(){
+        return board.isExtraTurn();
     }
     @Override
     public String toString(){
