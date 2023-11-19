@@ -35,7 +35,7 @@ public class TextUI {
                     System.out.println("invalid move. try again");
                 }
             }
-            while (!isValidMove);
+            while(!isValidMove);
             if (!mancalaGame.isExtraTurn()){
                 currentP = (currentP + 1) % 2;
             }
