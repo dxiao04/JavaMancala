@@ -1,45 +1,43 @@
-# Project Title
+# Mancala
 
-Simple overview of use/purpose.
+A text based game of mancala
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+A text based game of mancala. Features are demonstrated using a TextUI class
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing and running your program.
+* JDK
+* Gradle
 
 
 
 ### Executing program
 
-* How to build and run the program
-* Step-by-step bullets
+* Run the following:
 ```
-use code blocks for commands
+gradle build
+java -cp build/classes/java/main ui.TextUI
 ```
-* include the expected output
 
 ## Limitations
 
-What isn't done? What things cause errors?  
+The mancala game does everything as outlined by the assignment pdf
 
 ## Author Information
 
-Your name and contact information including your email address
+Daniel Xiao dxiao@uoguelph.ca
 
 ## Development History
-
-Keep a log of what things you accomplish when.  You can use git's tagging feature to tag the versions or you can reference commits.
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+Differences between the AI mancala and the real mancala:
+* AI mancala does not actually end the game (its logic only ends the game if _both_ sides are empty)
+* AI mancala implements the board as an array of 14 ints (no pit or store classes)
+* AI mancala does not implement the "extra turn" rule
+* AI mancala erroneously displays the valid pits for both players as 0-5
+* AI mancala determines the winner by only comparing the stones in the stores, not the sum of stones in the stores and pits at the end of the game
 
 ## Acknowledgments
 
