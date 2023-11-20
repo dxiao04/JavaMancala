@@ -14,7 +14,7 @@ public class Player {
     public String getName(){
         return nam;
     }
-    public Store getStore(){
+    Store getStore(){
         return store;
     }
     int getStoreCount(){

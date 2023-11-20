@@ -24,7 +24,7 @@ public class Board {
             }
             pitArr.get(pitInd).removeStones();
             pitArr.get(otherPit).removeStones();
-            return otherStones;
+            return 1 + otherStones;
         }
     }
     int distributeStones(int startingPoint) throws PitNotFoundException{ 
@@ -66,7 +66,7 @@ public class Board {
             }
             if (pitArr.get(currPit).getStoneCount() == 1){
                 if ((currPit < 6 && player == 1) || (currPit >= 6 && player == 2)){
-                    stoneNum += captureStones(currPit + 1);
+                    stoneNum += captureStones(currPit + 1) - 1; // stoneNum already had 1
                 }
             } 
             return stoneNum;
@@ -128,21 +128,23 @@ public class Board {
             throw new InvalidMoveException();
         }
         try{
-            newStoreNum = distributeStones(startPit) - oldStoreNum;
+            distributeStones(startPit);
+            newStoreNum =  player.getStoreCount() - oldStoreNum;
         }catch(PitNotFoundException pNFE){
             throw new InvalidMoveException();
         }
         return newStoreNum;
     }
     void registerPlayers(Player one, Player two){
-        if (storeArr.size() > 0){
-            one.setStore(storeArr.get(0));
-            storeArr.get(0).setOwner(one);
-            two.setStore(storeArr.get(1));
-            storeArr.get(1).setOwner(two);
+        if (storeArr.size() != 2){
+            setUpStores();
         }
+        one.setStore(storeArr.get(0));
+        storeArr.get(0).setOwner(one);
+        two.setStore(storeArr.get(1));
+         storeArr.get(1).setOwner(two);
     }
-    void resetBoard(){ // REDESTRIBUTE STONES?
+    void resetBoard(){
         for (Store s : storeArr){
             s.emptyStore();
         }
@@ -179,7 +181,7 @@ public class Board {
             strBuilder.append("[" + pitArr.get(i).getStoneCount() + "] ");
         }
         strBuilder.append("\n" + storeArr.get(0).getOwner().getName());
-        strBuilder.append("\n (bottom)");
+        strBuilder.append(" (bottom)");
         return strBuilder.toString();
     }
 }

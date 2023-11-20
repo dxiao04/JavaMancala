@@ -100,6 +100,7 @@ public class MancalaGame {
         board.registerPlayers(onePlayer, twoPlayer);
         playerArr.add(onePlayer);
         playerArr.add(twoPlayer);
+        setCurrentPlayer(onePlayer);
     }
     public void startNewGame(){
         board.resetBoard();
