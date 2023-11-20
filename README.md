@@ -13,8 +13,6 @@ A text based game of mancala. Features are demonstrated using a TextUI class
 * JDK
 * Gradle
 
-
-
 ### Executing program
 
 * Run the following:

@@ -136,10 +136,10 @@ public class BoardTest {
     @Test
     public void testDistributeStonesSkipOtherStore() throws PitNotFoundException, Exception{
         board.getPits().get(5).removeStones();
-        board.getPits().get(5).addStone(9);
+        board.getPits().get(5).addStone(8);
 
         int distributed = board.distributeStones(6);
-        assertEquals(9, distributed);
+        assertEquals(8, distributed);
         assertEquals(1, board.getStores().get(0).getTotalStones());
         for (int i = 6; i < 12; i ++){
             assertEquals(5, board.getPits().get(i).getStoneCount());
@@ -160,14 +160,18 @@ public class BoardTest {
     }
 
     @Test
-    public void testIsSideEmptyValid() throws PitNotFoundException, Exception{
-        boolean result = board.isSideEmpty(3);
-        assertFalse(result);
+    public void testIsSideEmptyValidTrue() throws PitNotFoundException, Exception{
         for (int i = 0; i < 6; i ++){
             board.getPits().get(i).removeStones();
         }
-        result = board.isSideEmpty(3);
+        boolean result = board.isSideEmpty(3);
         assertTrue(result);
+    }
+
+    @Test
+    public void testIsSideEmptyValidFalse() throws PitNotFoundException, Exception{
+        boolean result = board.isSideEmpty(3);
+        assertFalse(result);
     }
 
     @Test
