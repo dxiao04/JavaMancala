@@ -1,0 +1,94 @@
+
+
+********
+ Gradle Layout Check 
+********
+Gradle Layout is correct.
+
+********
+ Extra files found in repo 
+********
+no extra files found
+
+********
+ Missing mutators/accessors 
+********
+
+
+
+********
+ Non private member variables 
+********
+
+
+********
+ Missing Readme Headings 
+********
+
+
+********
+ OO Effort for AI Solution 
+********
+30.0%
+
+********
+ Extra Files found in Docs folder 
+********
+
+
+********
+ Build Check on repo as submitted 
+********
+> Task :clean UP-TO-DATE
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :jar
+> Task :assemble
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :checkstyleTest SKIPPED
+> Task :test
+> Task :checkstyleMain
+> Task :check
+> Task :build
+
+BUILD SUCCESSFUL in 3s
+6 actionable tasks: 5 executed, 1 up-to-date
+
+
+********
+ How well you tested Board Class with BoardTest 
+********
+Overall percentage: 94.0
+Individual methods:
+captureStones: 85.7
+distributeStones: 83.5
+getNumStones: 100.0
+isSideEmpty: 100.0
+resetBoard: 100.0
+registerPlayers: 94.4
+
+********
+ Checkstyle Errors and Warnings 
+********
+Starting audit...
+Audit done.
+
+
+********
+ Junit Test Results 
+********
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :jacocoTestReport
+
+BUILD SUCCESSFUL in 1s
+4 actionable tasks: 4 executed
+
